@@ -1,0 +1,219 @@
+% =================================================================================
+% AMC OMR Sheet Post-Correct Template: separate.tex
+% Description: Generates a blank OMR answer sheet for Auto Multiple Choice.
+% License: GPLv2+
+% Author: Rakesh Jana
+% Last Updated On: 4th May 2025
+% =================================================================================
+
+\documentclass[a4paper,11pt]{article}
+
+% -------------------- Encoding and Language --------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+
+% -------------------- AMC Package --------------------
+\usepackage[separateanswersheet,insidebox,postcorrect,automarks]{automultiplechoice}
+
+% -------------------- Layout --------------------
+\usepackage{geometry}
+\newgeometry{
+	inner=20mm, outer=20mm,
+	top=10mm, bottom=18mm,
+	headheight=17mm,headsep=0mm,
+	footskip=0mm,foot=12mm,
+	marginparwidth=0mm,marginparsep=0mm,
+	includehead,includefoot
+}
+\savegeometry{bubble}
+\loadgeometry{bubble}
+
+% -------------------- Extra Packages --------------------
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{enumerate,multicol}
+\usepackage{fp} % for Fixed Point Arithmetic
+\usepackage{tikz}
+\usepackage{totcount}
+
+% -------------- Packages For Table --------------------
+\usepackage{array}    % for >{\centering\arraybackslash}
+\usepackage{makecell} % for \makecell
+
+% Optional: define a C-column type for convenience
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+
+% -------------------- Question Counter --------------------
+\usepackage{totcount}
+\regtotcounter{AMCquestionaff}
+
+% -------------------- AMC Layout--------------------
+\setlength{\parindent}{0pt} 
+%\setlength{\columnseprule}{.1pt}
+\AMCcodeHspace=1em
+\AMCcodeVspace=1em 
+\AMCformHSpace=1em
+\AMCformVSpace=2ex
+\AMCboxStyle{shape=square,size=2.5ex,down=.4ex,rule=.5pt,outsidesep=.1em,color=black}
+
+% -------------------- AMC Question Labels --------------------
+\usepackage{xstring}
+\def\mythresh{1} % Required for string comparison
+\def\AMCchoiceLabelFormat#1{\color{black!50}\scriptsize{#1}}
+\def\AMCbeginQuestion#1#2{\par\hspace{-1mm}{\sf Q-#1}$\rangle$#2 \hspace{2mm}}
+\def\AMCformQuestion#1#2{\par\hspace{-1mm}\StrLen{#1}[\inputstrlen]
+	{\sf Q-\ifthenelse{\inputstrlen>\mythresh}{}{0}#1}$\rangle$#2 \hspace{2mm}}
+
+% ------------- AMC Command To be used in paper seting -------------
+\makeatletter\newcommand{\slno}{\the\AMCid@etud}\makeatother
+\makeatletter\newcommand{\makeAlph}[1]{\@Alph{#1}}\makeatother
+\newcommand{\paperCode}{{\fontsize{50}{60}\selectfont \makeAlph{\slno}}}
+
+% -------------------- User Parameters --------------------
+\definecolor{mygray}{gray}{0.96}
+\newcommand{\bbox}[1]{$\fcolorbox{black!40}{black!40}{\color{white}#1}$}
+\def\iitem{$\bullet\kern4pt$}
+
+% -------------------- Metadata --------------------
+\newcommand{\examName}{A Sample Exam Name}
+\newcommand{\departmentName}{Department of Mathemaics}
+\newcommand{\instituteName}{Indian Institute of Technology Bombay}
+\newcommand{\examDate}{May 4, 2023}
+\newcommand{\examTime}{9:30 -- 11:30}
+
+
+% -------------------- Exam Scoring --------------------
+% Define scoring: S = single-correct; M = multiple-correct
+% Parameter: mz = if all marked are correct, then mz, otherwise the score is zero.
+\def\scoringDefaultS{mz=1}
+\def\scoringDefaultM{mz=1}
+\def\scoringDefaultN{1}  % for numeric answer no negative marking
+\def\scoringDefaultNAPPROX{1}
+\def\anynegativemarking{F} % N=No, H=Half, F=Full, Q=Quarter
+% ------------ Formula Based Scoring --------------------
+%\def\tcqmarks{0.5} 	% Mark for each TFQ
+%\def\scqmarks{5}	% Mark for each SCQ
+%\def\mcqmarks{1}	% Mark for each MCQ
+%\def\scoringDefaultT{formula=(NBC/NB-NMC/NM)*\tcqmarks}
+%\def\scoringDefaultS{formula=(NBC/NB-NMC/NM)*\scqmarks}
+%\def\scoringDefaultM{formula=(NMC>0 ? 0 : (NBC/NB)*\mcqmarks)}
+
+
+% =================== Document =================== 
+\begin{document}
+	
+% -------------------- Set Scoring Zone on OMR --------------------
+\AMCsetScoreZoneAnswerSheet{width=1.5em, height=2ex, depth=.5ex, position=question}
+
+% -------------------- Generate Question Paper --------------------
+\onecopy{1}{  %%%%% Change 1 to number of paper variant needed.
+
+	%%%%%%%%%% Header %%%%%%%%%%
+	\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+				C{0.9\textwidth}
+				C{0.1\textwidth}
+				}
+		\makecell{
+		{\examName}\\
+		{\departmentName}\\
+		{\instituteName}
+		}%
+		& \makecell{\fbox{\paperCode}} 
+	\end{tabular*}
+	%%%%%%%%%% END of HEADER %%%%%%%%%%
+
+	%%%%%%%%%% Inser Dummy Questions %%%%%%%%%%
+	% Replace `20` with total number of questions
+	\foreach \qno in {1,2,...,20}{ 
+	\begin{question}{q\qno}
+		\begin{choicescustom}
+		\wrongchoice{}%
+		\wrongchoice{}%
+		\wrongchoice{}%
+		\wrongchoice{}%
+		%\wrongchoice{}%
+		\end{choicescustom}
+	\end{question}
+	}
+
+	%%%%%%%%%% END OF Question Paper %%%%%%%%%%
+
+\AMCcleardoublepage
+
+% -------------------- Generate OMR Sheet --------------------
+\AMCformBegin
+
+%%%%%%%%%% OMR Header %%%%%%%%%%
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}
+				C{0.9\textwidth}
+				C{0.1\textwidth}
+			}
+			\makecell{
+			{\LARGE\scshape\bfseries Optical Mark Recognition (OMR) Sheet}\\
+			{\LARGE \examName}\\
+			{\LARGE \departmentName}\\
+			{\LARGE\instituteName}
+			}%
+			& \makecell{\fbox{\paperCode}} 
+\end{tabular*}
+
+%%%%%%%%%% OMR Name Field %%%%%%%%%%
+\begin{minipage}{\textwidth}
+	\vspace*{7mm}
+	\begin{minipage}{.7\linewidth}%namefield
+	\namefield{ % starting point of namefield
+		\begin{minipage}{0.95\linewidth}
+		Name: \vspace*{1.75mm}\dotfill \\
+		Reg. No..:  \bbox{\Large R} \bbox{\Large M} \bbox{\Large A} \bbox{\Large 2} \bbox{\Large 0}
+		\bbox{\Large 2} \bbox{\Large 5}
+		\boxed{\scalebox{2.5}{\phantom{0}}}\:
+		\boxed{\scalebox{2.5}{\phantom{0}}}\:
+		\boxed{\scalebox{2.5}{\phantom{0}}}\:
+		\boxed{\scalebox{2.5}{\phantom{5}}}\:
+		\boxed{\scalebox{2.5}{\phantom{9}}}
+		\end{minipage}
+	} % end of namefield
+	\end{minipage}\hfill
+	\begin{minipage}{.3\linewidth}
+	Stud. Sign.: \vspace*{6mm}\dotfill  \\
+	Invig. Sign.: \dotfill 
+	\end{minipage}
+\end{minipage}
+%%%%%%%%%% End of OMR Name Field %%%%%%%%%%
+
+\vspace*{0.5ex}\hrule\vspace*{1ex}
+
+%%%%%%%%%% Registration Name Bubble Area and OMR Instruction %%%%%%%%%%
+
+\begin{minipage}{\textwidth}
+	\begin{minipage}[t]{.25\linewidth}
+		% Registration Number Bubble Area
+		\centering
+		{\bf Bubble Last Five Digits of Reg. No.} \\ \hrule \vspace{2ex}
+		\AMCcodeGridInt[top]{rollnumber}{5}
+	\end{minipage}\hfill 
+	\begin{minipage}[t]{.7\linewidth}
+		%%%%% OMR Sheet Instruction %%%%%
+		\textbf{\textsc{Instructions}}: \iitem Use only blue/black colored ball pen to make a bubble.
+		
+		\iitem The OMR sheet will be evaluated by using computer, so {\bf no writing is allowed anywhere in the OMR sheet except at dedicated places}.
+		
+		\iitem The right way to fill a box like \scalebox{1.25}{$\square$} is as  \scalebox{1.25}{$\blacksquare$}. Partially or improperly bubbled answers may not be considered during evaluation.
+		
+		\iitem Write your name and registration number on the OMR answer sheet in the space provided. Also put your signature on the OMR sheet in the dedicated space.
+		
+		\iitem Bubble your last five digits of your registration number, after ignoring the initial ``RMA2025'' part. For instance, if your registration number is RMA2025\underline{11223}, bubble the digits ``11223'' with the first digit in the first column and so on.
+		%%%%% End of OMR Sheet Instruction %%%%%
+	\end{minipage}
+\end{minipage}
+
+\vspace*{1ex}\hrule\hrule
+
+%%%%% OMR Sheet Form %%%%%
+		
+\begin{multicols}{2}
+\AMCform
+\end{multicols}
+
+} %%%%% End of Onecopy
+\end{document}
