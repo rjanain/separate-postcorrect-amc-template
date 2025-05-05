@@ -85,18 +85,39 @@
 % -------------------- Exam Scoring --------------------
 % Define scoring: S = single-correct; M = multiple-correct
 % Parameter: mz = if all marked are correct, then mz, otherwise the score is zero.
-\def\scoringDefaultS{mz=1}
-\def\scoringDefaultM{mz=1}
-\def\scoringDefaultN{1}  % for numeric answer no negative marking
-\def\scoringDefaultNAPPROX{1}
+% ==================== Scoring Parameters ==================
+\def\scqmarks{6}	% Mark for each SCQ
+\def\mcqmarks{6}	% Mark for each MCQ
+\def\ntqmarks{5}	% Mark for each NTQ
+
+% ==================== Scoring Defaults ==================
+\def\scoringDefaultS{mz=\scqmarks}
+\def\scoringDefaultM{mz=\mcqmarks}
+\def\scoringDefaultN{\ntqmarks}  % for numeric answer no negative marking
+\def\scoringDefaultNAPPROX{\ntqmarks}
 \def\anynegativemarking{F} % N=No, H=Half, F=Full, Q=Quarter
+
 % ------------ Formula Based Scoring --------------------
-%\def\tcqmarks{0.5} 	% Mark for each TFQ
-%\def\scqmarks{5}	% Mark for each SCQ
-%\def\mcqmarks{1}	% Mark for each MCQ
-%\def\scoringDefaultT{formula=(NBC/NB-NMC/NM)*\tcqmarks}
+% =========================================================="
+% The following variables are used in the scoring formula:	"
+% N = number of proposed responses.							"
+% NB = number of correct responses to the question.			"
+% NBC = count of correct responses which have been checked.	"
+% NM = number of wrong responses to the question.			"
+% NMC = count of wrong responses which have been checked.	"
+% =========================================================="
+% NOTE: If you you are using formula based scoring, then you need to
+% comment the above scoring parameters and uncomment the following
+% scoring parameters as per your requirement.
+% =========================================================="
+
+% 1. Example: -3 if any wrong answer is marked, otherwise \scqmarks
+% \def\scoringDefaultS{formula=(NMC > 0 ? -3 : \scqmarks}
+% 2. Example: Award and deduct marks for each correct and wrong answer respectively.
 %\def\scoringDefaultS{formula=(NBC/NB-NMC/NM)*\scqmarks}
-%\def\scoringDefaultM{formula=(NMC>0 ? 0 : (NBC/NB)*\mcqmarks)}
+% 3. Example: -3 if any wrong answer is marked, otherwise 
+%   it awards marks based on number of correct answers marked.
+%\def\scoringDefaultM{formula=(NMC>0 ? -3 : (NBC/NB)*\mcqmarks)}
 
 
 % =================== Document =================== 
@@ -164,7 +185,7 @@
 	\namefield{ % starting point of namefield
 		\begin{minipage}{0.95\linewidth}
 		Name: \vspace*{1.75mm}\dotfill \\
-		Reg. No..:  \bbox{\Large R} \bbox{\Large M} \bbox{\Large A} \bbox{\Large 2} \bbox{\Large 0}
+		Reg. No.:  \bbox{\Large R} \bbox{\Large M} \bbox{\Large A} \bbox{\Large 2} \bbox{\Large 0}
 		\bbox{\Large 2} \bbox{\Large 5}
 		\boxed{\scalebox{2.5}{\phantom{0}}}\:
 		\boxed{\scalebox{2.5}{\phantom{0}}}\:

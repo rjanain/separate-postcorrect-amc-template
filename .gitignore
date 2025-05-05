@@ -1,4 +1,5 @@
 dist/
+automultiplechoice.sty
 
 # LaTeX generated files
 *.aux
@@ -14,6 +15,7 @@ dist/
 *.dvi
 *.fdb_latexmk
 *.fls
+*.amc
 
 # Build directories/files
 _minted*
