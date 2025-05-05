@@ -18,6 +18,7 @@ dist/
 # Build directories/files
 _minted*
 auto/
+*.tgz
 
 # Editor temporary files
 *~
