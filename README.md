@@ -1,6 +1,19 @@
 # Auto Multiple Choice OMR & Postcorrect Template
 
+[![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2%2B-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Project Status: Active](https://img.shields.io/badge/status-active-success.svg)]() <!-- Add relevant link if available -->
+[![Made with LaTeX](https://img.shields.io/badge/Made%20with-LaTeX-blue.svg)](https://www.latex-project.org/)
+<a href="https://www.auto-multiple-choice.net/index.en" target="_blank">
+  <img src="https://www.auto-multiple-choice.net/logo.png" alt="Auto Multiple Choice" height="20" style="vertical-align: top;"/>
+</a>
+
+
+
 This repository provides a ready-to-use Auto Multiple Choice (AMC) template for generating separate OMR answer sheets and post-correction reports.
+
+- **Author:** Rakesh Jana
+- **Version:** 1.0.0
+- **Date:** May 5, 2025
 
 ## Contents
 
@@ -46,6 +59,10 @@ tar czvf omr-postcorrect-template.tgz \
 
 1. In AMC GUI, click **New Project** and select **omr-postcorrect-template** (or the name you gave the `.tgz`).
 2. Set exam metadata (title, date, etc.) in the LaTeX file (`separate-postcorrect.tex`).
+
+## Contributing
+
+Contributions are welcome! Please feel free to open an issue to report bugs or suggest features, or submit a pull request with improvements.
 
 ## License
 
