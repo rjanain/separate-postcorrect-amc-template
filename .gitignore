@@ -1,0 +1,24 @@
+dist/
+
+# LaTeX generated files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.synctex.gz
+*.pdf
+*.dvi
+*.fdb_latexmk
+*.fls
+
+# Build directories/files
+_minted*
+auto/
+
+# Editor temporary files
+*~
+.*.swp
