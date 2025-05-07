@@ -86,18 +86,16 @@
 % Define scoring: S = single-correct; M = multiple-correct
 % Parameter: mz = if all marked are correct, then mz, otherwise the score is zero.
 % ==================== Scoring Parameters ==================
-\def\scqmarks{6}	% Mark for each SCQ
 \def\mcqmarks{6}	% Mark for each MCQ
 \def\ntqmarks{5}	% Mark for each NTQ
 
 % ==================== Scoring Defaults ==================
-\def\scoringDefaultS{mz=\scqmarks}
 \def\scoringDefaultM{mz=\mcqmarks}
 \def\scoringDefaultN{\ntqmarks}  % for numeric answer no negative marking
 \def\scoringDefaultNAPPROX{\ntqmarks}
-\def\anynegativemarking{F} % N=No, H=Half, F=Full, Q=Quarter
 
 % ------------ Formula Based Scoring --------------------
+% NOTE: Variables NMC and NBC will work only when use inside questionmul block.
 % =========================================================="
 % The following variables are used in the scoring formula:	"
 % N = number of proposed responses.							"
@@ -111,11 +109,7 @@
 % scoring parameters as per your requirement.
 % =========================================================="
 
-% 1. Example: -3 if any wrong answer is marked, otherwise \scqmarks
-% \def\scoringDefaultS{formula=(NMC > 0 ? -3 : \scqmarks}
-% 2. Example: Award and deduct marks for each correct and wrong answer respectively.
-%\def\scoringDefaultS{formula=(NBC/NB-NMC/NM)*\scqmarks}
-% 3. Example: -3 if any wrong answer is marked, otherwise 
+% Example: -3 if any wrong answer is marked, otherwise 
 %   it awards marks based on number of correct answers marked.
 %\def\scoringDefaultM{formula=(NMC>0 ? -3 : (NBC/NB)*\mcqmarks)}
 
@@ -146,7 +140,7 @@
 	%%%%%%%%%% Inser Dummy Questions %%%%%%%%%%
 	% Replace `20` with total number of questions
 	\foreach \qno in {1,2,...,20}{ 
-	\begin{questionmult}{q\qno}
+	\begin{questionmult}{q\qno}\scoring{\scoringDefaultM}
 		\begin{choicescustom}
 		\wrongchoice{}%
 		\wrongchoice{}%
